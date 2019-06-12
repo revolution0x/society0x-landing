@@ -12,6 +12,6 @@ app.use(gatsyExpress('../../gatsby-express.json', {
     // should be used with gatsby-plugin-remove-trailing-slashes
     redirectSlashes: true,
 }));
-var port = 3000;
+var port = 8000;
 app.listen(port);
 console.log('App is listening on port ' + port);

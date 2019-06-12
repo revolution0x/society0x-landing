@@ -14,7 +14,7 @@ app.use(gatsyExpress('../../gatsby-express.json', {
     redirectSlashes: true,
 }));
 
-const port = 3000;
+const port = 8000;
 app.listen(port);
 
 console.log('App is listening on port ' + port);
