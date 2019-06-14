@@ -263,8 +263,8 @@ const LandingZone = () => {
                     <div style={{textAlign: 'center'}}>
                     <img src={society0xLogo} style={{maxWidth:'70px',marginBottom: '10px', filter: "drop-shadow(0px 0px 8px #000)"}}></img>
                     </div>
-                    <Typography style={{ textAlign: 'center' }} variant="h5" component="h3">
-                    {isConsideredMobile ? `⎊\nTransmuting Prima Materia\n⎊` : `⎊ Transmuting Prima Materia ⎊`}
+                    <Typography className={"pre-wrap"} style={{ textAlign: 'center' }} variant="h5" component="h3">
+                      {isConsideredMobile ? `⎊\nTransmuting Prima Materia\n⎊` : `⎊ Transmuting Prima Materia ⎊`}
                     </Typography>
                 </Paper>
             </ClickAwayListener>

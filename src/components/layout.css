@@ -91,6 +91,10 @@ html, body {
   background: linear-gradient(-90deg, #0c0c13, #0c0715);
 }
 
+.pre-wrap {
+  white-space: pre-wrap;
+}
+
 .fullwidth {
   width: 100%;
 }
