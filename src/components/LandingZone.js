@@ -16,7 +16,6 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import {store} from '../state';
 import Layout from "./layout"
-import {useSelector} from 'react-redux';
 //import society0xLogo from "../images/society0x_transparent_white_thicker.png";
 import society0xLogo from "../images/society0x_transparent_white_thicker.png";
 import Backdrop from '@material-ui/core/Backdrop';
@@ -227,8 +226,11 @@ const LandingZone = () => {
       showLeftMenu = store.getState().showLeftMenu
     });
 
-    //let isConsideredMobile = useSelector(state => state.isConsideredMobile)
-    let isConsideredMobile = false;
+    let isConsideredMobile = store.getState().isConsideredMobile
+    store.subscribe(() => {
+      isConsideredMobile = store.getState().isConsideredMobile
+    });
+
     const classes = useStyles();
     
     return (
@@ -262,7 +264,7 @@ const LandingZone = () => {
                     <img src={society0xLogo} style={{maxWidth:'70px',marginBottom: '10px', filter: "drop-shadow(0px 0px 8px #000)"}}></img>
                     </div>
                     <Typography style={{ textAlign: 'center' }} variant="h5" component="h3">
-                    ⎊ Transmuting Prima Materia ⎊
+                    {isConsideredMobile ? `⎊\nTransmuting Prima Materia\n⎊` : `⎊ Transmuting Prima Materia ⎊`}
                     </Typography>
                 </Paper>
             </ClickAwayListener>
