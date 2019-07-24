@@ -124,6 +124,59 @@ html, body {
   justify-content: space-evenly;
 }
 
+.our-modal {
+  z-index: 10;
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  width: 90%;
+  max-width: 1050px;
+  max-height: calc(100% - 100px);
+  overflow-y: auto;
+}
+
+.mobile-center-logo {
+  top: 50%;
+  position: absolute;
+  transform: translateY(-50%)translateX(-50%);
+  max-width: 90%;
+  max-height: 500px;
+  left: 50%;
+}
+
+.mobile-center-logo-text {
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%)translateX(-50%);
+  position: absolute;
+  font-size: 3.8rem!important;
+  color: white;
+  font-family: monospace, "Roboto", "Helvetica", "Arial", sans-serif!important;
+  text-shadow: 1px 1px 1px #000, 2px 2px 8px black;
+}
+
+@media only screen and (min-width: 450px) {
+  .mobile-center-logo-text {
+    font-size: 6rem!important;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .our-modal {
+    z-index: 10;
+    position: absolute;
+    left: 50%;
+    width: 90%;
+    max-width: 1050px;
+    max-height: calc(100% - 140px);
+    overflow-y: auto;
+  }
+}
+
+.link-hypertext {
+  color: rgb(0, 110, 255)
+}
+
 div[role="group"][tabindex] {
   height: 100%;
 }

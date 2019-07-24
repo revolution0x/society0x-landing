@@ -18,6 +18,7 @@ import {store} from '../state';
 import Layout from "./layout"
 //import society0xLogo from "../images/society0x_transparent_white_thicker.png";
 import society0xLogo from "../images/society0x_transparent_white_thicker.png";
+import society0xLogoBlack from "../images/society0x_transparent_black_thicker.png";
 import Backdrop from '@material-ui/core/Backdrop';
 
 
@@ -184,12 +185,16 @@ function Scene({ glitch, top, effectsTop, isConsideredMobile, showFragmentDistor
       <Effects showFragmentDistortion={showFragmentDistortion} factor={effectsTop.interpolate([0, 150], [1, 0])} />
       <Background color={top.interpolate([0, scrollMax * 0.25, scrollMax * 0.8, scrollMax], ['#272727'])} />
       <Octahedrons position={top.interpolate(top => [0, -1 + top / 20, 0])} />
-      <Icon opacity={0.8} isConsideredMobile={isConsideredMobile} position={top.interpolate(top => [0, -1 + top / 200, 0])}>
-        ⎊
-      </Icon>
-      <Text opacity={0.9} showFragmentDistortion={showFragmentDistortion} isConsideredMobile={isConsideredMobile} position={top.interpolate(top => [0, -0.68 + top / 200, 0])}>
-        {showDAO ? "D A O" : "society0x"}
-      </Text>
+      {!isConsideredMobile &&
+        <>
+          <Icon opacity={0.8} isConsideredMobile={isConsideredMobile} position={top.interpolate(top => [0, -1 + top / 200, 0])}>
+            ⎊
+          </Icon>
+          <Text opacity={0.9} showFragmentDistortion={showFragmentDistortion} position={top.interpolate(top => [0, -0.68 + top / 200, 0])}>
+            {showDAO ? "D A O" : "society0x"}
+          </Text>
+        </>
+      }
     </>
   )
 }
@@ -209,8 +214,12 @@ const LandingZone = () => {
     const onScrollThreeJS = useCallback(e => set({ top: e.target.scrollTop }), [])
     const onScrollReactSpring = useCallback(e => setReactSpring({ topReactSpring: 80 - (e.target.scrollTop / 10) }), [])
     
+    let isConsideredMobile = store.getState().isConsideredMobile
+    store.subscribe(() => {
+      isConsideredMobile = store.getState().isConsideredMobile
+    });
+
     const onToggleManifestoSpring = useCallback((e, clickaway = false) => {
-        console.log("manifestoSpring",manifestoSpring);
         if (!clickaway || (clickaway && (manifestoSpring.value < 95))) {
             e.stopPropagation();
             e.preventDefault();
@@ -226,11 +235,6 @@ const LandingZone = () => {
       showLeftMenu = store.getState().showLeftMenu
     });
 
-    let isConsideredMobile = store.getState().isConsideredMobile
-    store.subscribe(() => {
-      isConsideredMobile = store.getState().isConsideredMobile
-    });
-
     const classes = useStyles();
     
     return (
@@ -238,33 +242,56 @@ const LandingZone = () => {
         <Canvas className="canvas">
           <Scene topOverride={topOverride} top={top} isConsideredMobile={isConsideredMobile} showDAO={showLeftMenu} showFragmentDistortion={showLeftMenu} effectsTop={showLeftMenu ? topOverride : effectsTop} mouse={mouse} />
         </Canvas>
+        {isConsideredMobile &&
+        <>
+          <img class={"mobile-center-logo"} src={society0xLogoBlack} style={{opacity: 0.8}}></img>
+          <Typography className={"mobile-center-logo-text"} style={{ textAlign: 'center', marginBottom: '5px' }} variant="h5" component="h3">
+                      {`society0x`}
+          </Typography>
+          </>
+        }
         <div ref={scrollPane} className="scroll-container" onScroll={(e) => { onScrollThreeJS(e);onScrollReactSpring(e);setButtonOpacity((1 - e.target.scrollTop / 100)); }} onMouseMove={onMouseMove}>
           <div style={{ height: '280vh' }}>
           </div>
         </div>
         <div style={{ top: `70%`, position: 'absolute', transform: 'translateX(-50%)', left: '50%', transition: 'all 0.3s ease-in-out', opacity: buttonOpacity, pointerEvents: (buttonOpacity < 0) ? 'none' : '' }}>
-            <Fab onClick={(e) => { onToggleManifestoSpring(e)}} style={{ opacity: '0.85', display: 'block', width: '100%'  }} color="primary" size="large" variant="extended">
-              Developing
+            <Fab onClick={(e) => { onToggleManifestoSpring(e)}} style={{ opacity: '0.85', display: 'block', width: '100%'  }} color="default" size="large" variant="extended">
+              Demo
             </Fab>
-            <a href="https://discord.gg/UAJMkPV" style={{ textDecoration: 'none', display: 'block', marginTop: '10px' }} target="_blank" rel="noreferrer noopener">
-              <Fab style={{ opacity: '0.85', display: 'block' }} color="default" size="large" variant="extended">
-                Join Discussion
-            </Fab>
+            <a href="https://github.com/revolution0x/society0x" style={{ textDecoration: 'none', width: '100%', display: 'block', marginTop: '10px' }} target="_blank" rel="noreferrer noopener">
+              <Fab style={{ opacity: '0.85', display: 'block', width: '100%'  }} color="default" size="large" variant="extended">
+                GitHub
+              </Fab>
             </a>
-            {/* <Fab onClick={() => launchBeta()} style={{opacity: '0.85', display: 'block', width: '100%', marginTop: '10px'}} color="default" size="medium" variant="extended">
-            Launch Beta
-          </Fab> */}
+            <a href="https://discord.gg/UAJMkPV" style={{ textDecoration: 'none', display: 'block', marginTop: '10px' }} target="_blank" rel="noreferrer noopener">
+              <Fab style={{ opacity: '0.85', display: 'block', width: '100%'  }} color="default" size="large" variant="extended">
+                Join Discussion
+              </Fab>
+            </a>
         </div>
         <div>
         <Backdrop open={manifestoOpen ? true : false} style={{zIndex: 5}}></Backdrop>
-        <animated.div onWheel={(e) => { onWheelReactSpring(e); }} style={{ zIndex: 10, position: 'absolute', top: manifestoSpring.interpolate(top => `${top}%`), left: '50%', transform: manifestoSpring.interpolate(top => `translateX(-50%)translateY(-${100 - top}%)`) }}>
+        <animated.div onWheel={(e) => { onWheelReactSpring(e); }} className={["our-modal", manifestoOpen ? "our-modal-open" : ""].join(" ")} style={{ top: manifestoSpring.interpolate(top => `${top}%`), left: '50%', transform: manifestoSpring.interpolate(top => `translateX(-50%)translateY(-${100 - top}%)`) }}>
             <ClickAwayListener onClickAway={(e) => { onToggleManifestoSpring(e, true)}}>
                 <Paper elevation={12} className={classes.root} style={{textShadow: "0px 0px 8px #000"}}>
                     <div style={{textAlign: 'center'}}>
                     <img src={society0xLogo} style={{maxWidth:'70px',marginBottom: '10px', filter: "drop-shadow(0px 0px 8px #000)"}}></img>
                     </div>
-                    <Typography className={"pre-wrap"} style={{ textAlign: 'center' }} variant="h5" component="h3">
-                      {isConsideredMobile ? `⎊\nTransmuting Prima Materia\n⎊` : `⎊ Transmuting Prima Materia ⎊`}
+                    <Typography className={"pre-wrap"} style={{ textAlign: 'center', marginBottom: '5px' }} variant="h5" component="h3">
+                      {`⎊\n`}
+                    </Typography>
+                    <Typography className={"pre-wrap"} style={{ textAlign: 'center' }} variant="h6" component="h3">
+                      {`Please note that society0x is currently in development phases, running on Ethereum's Rinkeby test network. Content created on the DAO during the development phase will be lost on subsequent DAO deployments/improvements. The point of this phase is to test functionality atomically, in an effort to iteratively improve and reconcile feedback into creating a sustainable long term platform for the conscious proliferation of life. In the spirit of transparency, the entire lifecycle of this platform will be publicly accessible. We are taking a "philosophy first" approach towards the development of society0x, this means a lot of opportunity for discussion and deliberation between individuals who resonate with the sentiment of utilising technology to create a more wholesome and healthy society for generations to come, as well as each other. Feel free to `}
+                      <a href="https://discord.gg/UAJMkPV" className={"link-hypertext"} target="_blank" rel="noreferrer noopener">join the discussion</a>
+                      {` to have an impact on how society0x is built.`}
+                    </Typography>
+                    <a href="https://dao.society0x.org" style={{ textDecoration: 'none' }} target="_blank" rel="noreferrer noopener">
+                      <Fab style={{ opacity: '0.85', display: 'block', left: '50%', transform: 'translateX(-50%)', marginTop: '10px' }} color="primary" size="large" variant="extended">
+                        Launch Demo
+                      </Fab>
+                    </a>
+                    <Typography className={"pre-wrap"} style={{ textAlign: 'center', marginTop: '10px' }} variant="h5" component="h3">
+                      {`⎊\n`}
                     </Typography>
                 </Paper>
             </ClickAwayListener>
