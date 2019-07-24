@@ -21,7 +21,7 @@ const enhancer = composeEnhancers(
 const persistConfig = {
     key: 'root',
     storage: storage,
-    blacklist: ['setWeb3', 'setActiveAccount', 'showLeftMenu'],
+    blacklist: ['setWeb3', 'setActiveAccount', 'showLeftMenu', 'isConsideredMobile'],
     stateReconciler: autoMergeLevel2
 };
 
