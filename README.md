@@ -1,6 +1,6 @@
 # society0x-landing
 
-This is a [Gatsby](https://www.gatsbyjs.org/) website which makes up the "landing content" of society0x.org
+This is a [Gatsby](https://www.gatsbyjs.org/) & [React](https://reactjs.org/) powered website which makes up the "landing site content" of https://society0x.org
 
 ## Run it locally
 
