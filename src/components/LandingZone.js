@@ -114,7 +114,7 @@ function Icon({ children, position, opacity, color = '#000000', fontSize = 800, 
         return (
         <a.sprite scale={[scale, scale, 1]} position={position}>
             <a.spriteMaterial attach="material" transparent opacity={opacity}>
-            <canvasTexture attach="map" image={canvas} premultiplyAlpha onUpdate={s => (s.needsUpdate = true)} />
+              <canvasTexture attach="map" image={canvas} premultiplyAlpha onUpdate={s => (s.needsUpdate = true)} />
             </a.spriteMaterial>
         </a.sprite>
         )
@@ -285,7 +285,7 @@ const LandingZone = () => {
                       <a href="https://discord.gg/UAJMkPV" className={"link-hypertext"} target="_blank" rel="noreferrer noopener">Join the discussion</a>
                       {` to have an impact on how society0x is built.`}
                     </Typography>
-                    <a href="https://dao.society0x.org" style={{ textDecoration: 'none' }} target="_blank" rel="noreferrer noopener">
+                    <a href="https://dao.society0x.org" style={{ textDecoration: 'none' }}>
                       <Fab style={{ opacity: '0.85', display: 'block', left: '50%', transform: 'translateX(-50%)', marginTop: '10px' }} color="primary" size="large" variant="extended">
                         Launch Demo
                       </Fab>
